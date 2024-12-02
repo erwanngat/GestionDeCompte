@@ -88,53 +88,68 @@ public class Main {
         scanner.nextLine();
         System.out.print("Nom du propriétaire du compte à créditer : ");
         String proprietaire = scanner.nextLine();
+        Compte compte = gestionDeComptes.trouverCompteParProprietaire(proprietaire);
+        
+        while (compte == null) {
+            System.out.println("Compte non trouvé. Veuillez saisir un nom valide.");
+            System.out.print("Nom du propriétaire du compte à créditer : ");
+            proprietaire = scanner.nextLine();
+            compte = gestionDeComptes.trouverCompteParProprietaire(proprietaire);
+        }
         System.out.print("Montant à créditer : ");
         double montant = scanner.nextDouble();
-
-        Compte compte = gestionDeComptes.trouverCompteParProprietaire(proprietaire);
-        if (compte != null) {
-            compte.crediter(montant);
-            System.out.println("Compte crédité de " + montant + " €.");
-        } else {
-            System.out.println("Compte non trouvé.");
-        }
+        compte.crediter(montant);
+        System.out.println("Compte crédité de " + montant + " €.");
     }
 
     private static void debiterCompte() {
         scanner.nextLine();
         System.out.print("Nom du propriétaire du compte à débiter : ");
         String proprietaire = scanner.nextLine();
+        
+        Compte compte = gestionDeComptes.trouverCompteParProprietaire(proprietaire);
+        while (compte == null) {
+            System.out.println("Compte non trouvé. Veuillez saisir un nom valide.");
+            System.out.print("Nom du propriétaire du compte à débiter : ");
+            proprietaire = scanner.nextLine();
+            compte = gestionDeComptes.trouverCompteParProprietaire(proprietaire);
+        }
+    
         System.out.print("Montant à débiter : ");
         double montant = scanner.nextDouble();
-
-        Compte compte = gestionDeComptes.trouverCompteParProprietaire(proprietaire);
-        if (compte != null) {
-            compte.debiter(montant);
-            System.out.println("Compte débité de " + montant + " €.");
-        } else {
-            System.out.println("Compte non trouvé.");
-        }
+        compte.debiter(montant);
+        System.out.println("Compte débité de " + montant + " €.");
     }
 
     private static void effectuerVirement() {
         scanner.nextLine();
         System.out.print("Nom du propriétaire du compte source : ");
         String proprietaireSource = scanner.nextLine();
+        Compte compteSource = gestionDeComptes.trouverCompteParProprietaire(proprietaireSource);
+        
+        while (compteSource == null) {
+            System.out.println("Compte source non trouvé. Veuillez saisir un nom valide.");
+            System.out.print("Nom du propriétaire du compte source : ");
+            proprietaireSource = scanner.nextLine();
+            compteSource = gestionDeComptes.trouverCompteParProprietaire(proprietaireSource);
+        }
+
         System.out.print("Nom du propriétaire du compte destination : ");
         String proprietaireDest = scanner.nextLine();
+        Compte compteDest = gestionDeComptes.trouverCompteParProprietaire(proprietaireDest);
+        while (compteDest == null) {
+            System.out.println("Compte destination non trouvé. Veuillez saisir un nom valide.");
+            System.out.print("Nom du propriétaire du compte destination : ");
+            proprietaireDest = scanner.nextLine();
+            compteDest = gestionDeComptes.trouverCompteParProprietaire(proprietaireDest);
+        }
+        
         System.out.print("Montant du virement : ");
         double montant = scanner.nextDouble();
-
-        Compte compteSource = gestionDeComptes.trouverCompteParProprietaire(proprietaireSource);
-        Compte compteDest = gestionDeComptes.trouverCompteParProprietaire(proprietaireDest);
-
-        if (compteSource != null && compteDest != null) {
-            compteSource.debiter(montant);
-            compteDest.crediter(montant);
-            System.out.println("Virement de " + montant + " € effectué.");
-        } else {
-            System.out.println("Un ou plusieurs comptes non trouvés.");
-        }
+    
+        compteSource.debiter(montant);
+        compteDest.crediter(montant);
+        System.out.println("Virement de " + montant + " € effectué.");
     }
 
     private static void afficherComptes() {
