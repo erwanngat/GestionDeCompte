@@ -64,8 +64,24 @@ public class Main {
         scanner.nextLine();
         System.out.print("Nom du propriétaire : ");
         String proprietaire = scanner.nextLine();
-        System.out.print("Découvert autorisé : ");
-        double decouvertAutorise = scanner.nextDouble();
+
+        double decouvertAutorise = 0.0;
+        boolean valid = false;
+
+        while (!valid) {
+            System.out.print("Découvert autorisé : ");
+            try {
+                decouvertAutorise = Double.parseDouble(scanner.nextLine());
+                
+                if (decouvertAutorise < 0) {
+                    System.out.println("Le découvert autorisé doit être un nombre positif. Essayez à nouveau.");
+                } else {
+                    valid = true;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Entrée invalide. Veuillez entrer un nombre valide pour le découvert.");
+            }
+        }
 
         CompteCourant compteCourant = new CompteCourant(proprietaire, decouvertAutorise);
         gestionDeComptes.ajouterCompte(compteCourant);
@@ -76,8 +92,23 @@ public class Main {
         scanner.nextLine();
         System.out.print("Nom du propriétaire : ");
         String proprietaire = scanner.nextLine();
-        System.out.print("Taux d'abondement (%): ");
-        double tauxAbondement = scanner.nextDouble();
+
+        double tauxAbondement = 0.0;
+        boolean valid = false;
+
+        while(!valid){
+            System.out.print("Taux d'abondement (%): ");
+            try{
+                tauxAbondement = Double.parseDouble(scanner.nextLine());
+                if (tauxAbondement < 0) {
+                    System.out.println("Le taux d'abondement doit être un nombre positif. Essayez à nouveau.");
+                } else {
+                    valid = true;
+                }
+            }catch (NumberFormatException e) {
+                System.out.println("Entrée invalide. Veuillez entrer un nombre valide pour le taux d'abondement.");
+            }
+        }
 
         CompteEpargne compteEpargne = new CompteEpargne(proprietaire, tauxAbondement);
         gestionDeComptes.ajouterCompte(compteEpargne);
@@ -96,8 +127,24 @@ public class Main {
             proprietaire = scanner.nextLine();
             compte = gestionDeComptes.trouverCompteParProprietaire(proprietaire);
         }
-        System.out.print("Montant à créditer : ");
-        double montant = scanner.nextDouble();
+
+        double montant = 0.0;
+        boolean valid = false;
+
+        while(!valid){
+            System.out.print("Montant à créditer : ");
+            try{
+                montant = Double.parseDouble(scanner.nextLine());
+                if (montant < 0) {
+                    System.out.println("Le montant doit être un nombre positif. Essayez à nouveau.");
+                } else {
+                    valid = true;
+                }
+            }catch (NumberFormatException e) {
+                System.out.println("Entrée invalide. Veuillez entrer un nombre valide pour le montantt.");
+            }
+        }
+        
         compte.crediter(montant);
         System.out.println("Compte crédité de " + montant + " €.");
     }
@@ -115,8 +162,23 @@ public class Main {
             compte = gestionDeComptes.trouverCompteParProprietaire(proprietaire);
         }
     
-        System.out.print("Montant à débiter : ");
-        double montant = scanner.nextDouble();
+        double montant = 0.0;
+        boolean valid = false;
+
+        while(!valid){
+            System.out.print("Montant à débiter : ");
+            try{
+                montant = Double.parseDouble(scanner.nextLine());
+                if (montant < 0) {
+                    System.out.println("Le montant doit être un nombre positif. Essayez à nouveau.");
+                } else {
+                    valid = true;
+                }
+            }catch (NumberFormatException e) {
+                System.out.println("Entrée invalide. Veuillez entrer un nombre valide pour le montantt.");
+            }
+        }
+
         compte.debiter(montant);
         System.out.println("Compte débité de " + montant + " €.");
     }
@@ -143,9 +205,23 @@ public class Main {
             proprietaireDest = scanner.nextLine();
             compteDest = gestionDeComptes.trouverCompteParProprietaire(proprietaireDest);
         }
-        
-        System.out.print("Montant du virement : ");
-        double montant = scanner.nextDouble();
+
+        double montant = 0.0;
+        boolean valid = false;
+
+        while(!valid){
+            System.out.print("Montant du virement : ");
+            try{
+                montant = Double.parseDouble(scanner.nextLine());
+                if (montant < 0) {
+                    System.out.println("Le montant doit être un nombre positif. Essayez à nouveau.");
+                } else {
+                    valid = true;
+                }
+            }catch (NumberFormatException e) {
+                System.out.println("Entrée invalide. Veuillez entrer un nombre valide pour le montantt.");
+            }
+        }
     
         compteSource.debiter(montant);
         compteDest.crediter(montant);
